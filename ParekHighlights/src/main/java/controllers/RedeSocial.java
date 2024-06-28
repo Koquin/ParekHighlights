@@ -7,8 +7,8 @@ import models.*;
 
 
 public class RedeSocial {
-	private RepositorioDePostagens repositorioDePostagens;
-	private RepositorioDePerfis repositorioDePerfis;
+	private RepositorioDePostagens repositorioDePostagens = new RepositorioDePostagens();
+	private RepositorioDePerfis repositorioDePerfis = new RepositorioDePerfis();
 	
 	public void incluirPerfil(Perfil perfil) {
 		if (!repositorioDePerfis.existePerfil(perfil) && repositorioDePerfis.atributosPreenchidosPerfil(perfil)) {

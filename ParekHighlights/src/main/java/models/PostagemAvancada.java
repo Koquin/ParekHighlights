@@ -1,7 +1,6 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PostagemAvancada extends Postagem {
@@ -9,8 +8,8 @@ public class PostagemAvancada extends Postagem {
     private List<String> hashtags = new ArrayList<>();
     private int visualizacoesRestantes;
 
-    public PostagemAvancada(int id, String texto, Date data, Perfil perfil, List<String> hashtags, int visualizacoesRestantes) {
-        super(id, texto, data, perfil);
+    public PostagemAvancada(int id, String texto, Perfil perfil, List<String> hashtags, int visualizacoesRestantes) {
+        super(texto, perfil);
         if (hashtags != null) {
             this.hashtags = new ArrayList<>(hashtags);
         }

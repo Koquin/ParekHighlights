@@ -1,22 +1,21 @@
 package models;
-import java.util.Date;
-
+import java.time.LocalDate;
 public class Postagem {
 	
-	private int id;
+	private static int id;
 	private String texto;
 	private int curtidas;
 	private int descurtidas;
-	private Date data;
+	private LocalDate data;
 	private Perfil perfil;
 	
 	
-	public Postagem(int id, String texto, Date data, Perfil perfil) {
-		this.id = id;
+	public Postagem(String texto, Perfil perfil) {
+		this.id++;
 		this.texto = texto;
 		this.curtidas = 0;
 		this.descurtidas = 0;
-		this.data = data;
+		this.data = data.now();
 		this.perfil = perfil;
 	}
 
@@ -44,7 +43,7 @@ public class Postagem {
 		return descurtidas;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
@@ -55,5 +54,28 @@ public class Postagem {
 	public int getId() {
 		return id;
 	}
+
+	@Override
+	public String toString() {
+		if (this.ehPopular()) {
+			return 	"--- POPULAR ---"
+			+"\n[ID] " + getId()
+			+"\n[Curtidas] " + getCurtidas() 
+			+"\n[Descutidas] " + getDescurtidas()
+			+"\n[Data do post] " + getData()
+			+"\n[Autor] " + getPerfil()
+			+"\n[Conteúdo] " + getTexto();
+		}
+		else {
+			return "[ID] " + getId()
+			+"\n[Curtidas] " + getCurtidas() 
+			+"\n[Descutidas] " + getDescurtidas()
+			+"\n[Data do post] " + getData()
+			+"\n[Autor] " + getPerfil()
+			+"\n[Conteúdo] " + getTexto();
+		}
+	}
+	
+	
 
 }
