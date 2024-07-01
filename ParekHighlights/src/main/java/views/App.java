@@ -1,6 +1,5 @@
 package views;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import controllers.RedeSocial;
@@ -33,9 +32,9 @@ public class App {
 				id = teclado.nextInt();
 				System.out.println("Digite o nome: ");
 				teclado.nextLine();
-				nome = teclado.nextLine();
+				nome = teclado.nextLine().toLowerCase();
 				System.out.println("Digite o email: ");
-				email = teclado.nextLine();
+				email = teclado.nextLine().toLowerCase();
 				List<Perfil> perfisAchados = parekHighlights.consultarPerfil(id, nome, email);
 				for (Perfil perfil : perfisAchados) {
 					System.out.println(perfil.toString());
@@ -48,10 +47,11 @@ public class App {
 				String hashtag = "";
 				System.out.println("Digite o id: ");
 				id = teclado.nextInt();
+				teclado.nextLine();
 				System.out.println("Digite o hashtag: ");
 				hashtag = teclado.nextLine();
 				System.out.println("Digite o id do perfil: ");
-				Perfil perfil = (Perfil)parekHighlights.consultarPerfil(teclado.nextInt(), null, null);
+				Perfil perfil = parekHighlights.consultarPerfilPorID(teclado.nextInt());
 				List<Postagem> postagensAchadas = parekHighlights.consultarPostagem(id, texto, hashtag, perfil);
 				for (Postagem postagem : postagensAchadas) {
 					System.out.println(postagem.toString());
@@ -70,12 +70,19 @@ public class App {
 			}
 			case 7: {
 				System.out.println("Digite o id do perfil: ");
-				parekHighlights.exibirPostagensPorPerfil(teclado.nextInt());
-				break;
+				for (Postagem postagem : parekHighlights.exibirPostagensPorPerfil(teclado.nextInt()))
+				{
+					System.out.println(postagem);
+				}
+					break;
 			}
 			case 8: {
 				System.out.println("Digite a hashtag: ");
-				parekHighlights.exibirPostagensPorHashtag(teclado.nextLine());
+				String hashtag = teclado.nextLine();
+				for (Postagem postagem: parekHighlights.exibirPostagensPorHashtag(hashtag))
+				{
+					System.out.println(postagem);
+				}
 				break;
 			}
 			case 0: {
@@ -107,10 +114,9 @@ public class App {
 		String nome = "";
 		String email = "";
 		System.out.println("Digite o nome do perfil:");
-		nome = teclado.nextLine();
+		nome = teclado.nextLine().toLowerCase();
 		System.out.println("Digite o email do perfil:");
-		email = teclado.nextLine();
-		System.out.println("Perfil Adicionado!");
+		email = teclado.nextLine().toLowerCase();
 		return new Perfil(nome, email);
 	}
 	
@@ -121,7 +127,7 @@ public class App {
 		System.out.println("Digite o texto:");
 		texto = teclado.nextLine();
 		System.out.println("Digite o id do perfil:");
-		Perfil perfil = (Perfil)parekHighlights.consultarPerfil(teclado.nextInt(), null, null);
+		Perfil perfil = parekHighlights.consultarPerfilPorID(teclado.nextInt());
 		postagem = new Postagem(texto, perfil);
 		return postagem;
 	}	

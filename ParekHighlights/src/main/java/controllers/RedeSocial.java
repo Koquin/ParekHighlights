@@ -20,6 +20,16 @@ public class RedeSocial {
 		return repositorioDePerfis.consultar(id, nome, email);
 	}
 	
+	public Perfil consultarPerfilPorID(int id){
+		List<Perfil> perfilRetornado = repositorioDePerfis.consultar(id, null, null);
+		for (Perfil perfil : perfilRetornado) {
+			if (perfil.getId() == id) {
+				return perfil;
+			}
+		}
+		return null;
+}
+	
 	public void incluirPostagem (Postagem postagem) {
 		if (!repositorioDePostagens.existePostagem(postagem) && repositorioDePostagens.atributosPreenchidosPostagem(postagem)) {
 			repositorioDePostagens.incluir(postagem);
@@ -31,12 +41,12 @@ public class RedeSocial {
 	}
 	
 	public void curtir (int idPostagem) {
-		Postagem curtirPostagem = (Postagem)consultarPostagem(idPostagem, null, null, null);
+		Postagem curtirPostagem = repositorioDePostagens.consultarPostagemPorID(idPostagem);
 		curtirPostagem.curtir();
 	}
 	
 	public void descurtir (int idPostagem) {
-		Postagem descurtirPostagem = (Postagem)consultarPostagem(idPostagem, null, null, null);
+		Postagem descurtirPostagem = repositorioDePostagens.consultarPostagemPorID(idPostagem);
 		descurtirPostagem.descurtir();
 	}
 	
@@ -49,19 +59,20 @@ public class RedeSocial {
 	}
 	
 	public List<Postagem> exibirPostagensPorPerfil(int id){
-		Perfil perfilPostagens = (Perfil)repositorioDePerfis.consultar(id, null, null);
+		Perfil perfilPostagens = consultarPerfilPorID(id);
+		List<Postagem> retornarPostagens = new ArrayList<>();
 		List<Postagem> postagensExibidas = repositorioDePostagens.consultar(0, null, null, perfilPostagens);
 		for (Postagem postagem : postagensExibidas) {
 			if (postagem instanceof PostagemAvancada) {
 				if (this.decrementarVisualizações((PostagemAvancada)postagem)) {
-					postagensExibidas.add(postagem);
+					retornarPostagens.add(postagem);
 				}
 			}
 			else {
-				postagensExibidas.add(postagem);
+				retornarPostagens.add(postagem);
 			}
 		}
-		return postagensExibidas;
+		return retornarPostagens;
 	}
 	
 	public List<Postagem> exibirPostagensPorHashtag(String hashtag){

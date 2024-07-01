@@ -1,15 +1,17 @@
 package models;
 
 public class Perfil {
-	private static int id;
+	private static int idContagem;
+	private int id;
 	private String nome;
 	private String email;
 	
 	
 	public Perfil(String nome, String email) {
-		this.id++;
+		idContagem++;
 		this.nome = nome;
 		this.email = email;
+		id = idContagem;
 	}
 
 	public int getId() {

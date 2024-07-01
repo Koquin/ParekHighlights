@@ -15,7 +15,7 @@ public class RepositorioDePerfis {
         if (id > 0 || (nome != null && !nome.isEmpty()) || (email != null && !email.isEmpty())) {
             for (Perfil perfil : perfis) {
                 if ((id > 0 && perfil.getId() == id) ||
-                    (nome != null && !nome.isEmpty() && perfil.getNome().equals(nome)) ||
+                    (nome != null && !nome.isEmpty() && perfil.getNome().contains(nome)) ||
                     (email != null && !email.isEmpty() && perfil.getEmail().equals(email))) {
                     retornarPerfis.add(perfil);
                 }
@@ -27,12 +27,13 @@ public class RepositorioDePerfis {
 	public boolean existePerfil(Perfil perfil) {
 		for (Perfil proPerfil : perfis) {
 			if (proPerfil.getId() == perfil.getId()
-			|| proPerfil.getNome().equals(perfil.getNome())
 			|| proPerfil.getEmail().equals(perfil.getEmail()))
 			{
+				System.out.println("Esse perfil ja existe !");
 				return true;
 			}
 		}
+		System.out.println("Esse perfil não existe ainda!");
 		return false;
 	}
 	

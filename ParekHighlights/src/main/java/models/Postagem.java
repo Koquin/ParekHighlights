@@ -2,7 +2,8 @@ package models;
 import java.time.LocalDate;
 public class Postagem {
 	
-	private static int id;
+	private int id;
+	private static int idContagem;
 	private String texto;
 	private int curtidas;
 	private int descurtidas;
@@ -11,12 +12,13 @@ public class Postagem {
 	
 	
 	public Postagem(String texto, Perfil perfil) {
-		this.id++;
+		this.idContagem++;
 		this.texto = texto;
 		this.curtidas = 0;
 		this.descurtidas = 0;
 		this.data = data.now();
 		this.perfil = perfil;
+		this.id = idContagem;
 	}
 
 	public void curtir() {
@@ -63,7 +65,7 @@ public class Postagem {
 			+"\n[Curtidas] " + getCurtidas() 
 			+"\n[Descutidas] " + getDescurtidas()
 			+"\n[Data do post] " + getData()
-			+"\n[Autor] " + getPerfil()
+			+"\n[Autor] " + getPerfil().getNome()
 			+"\n[Conteúdo] " + getTexto();
 		}
 		else {
@@ -71,7 +73,7 @@ public class Postagem {
 			+"\n[Curtidas] " + getCurtidas() 
 			+"\n[Descutidas] " + getDescurtidas()
 			+"\n[Data do post] " + getData()
-			+"\n[Autor] " + getPerfil()
+			+"\n[Autor] " + getPerfil().getNome()
 			+"\n[Conteúdo] " + getTexto();
 		}
 	}

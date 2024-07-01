@@ -33,6 +33,16 @@ public class RepositorioDePostagens {
 	}
 		return retornarPostagens;
 }
+	
+	public Postagem consultarPostagemPorID (int id) {
+		for (Postagem postagem : postagens) {
+			if (postagem.getId() == id) {
+				return postagem;
+			}
+		}
+		return null;
+	}
+	
 	public boolean existePostagem(Postagem postagem) {
 		for (Postagem postagem1 : postagens) {
 			if (postagem.getId() == postagem1.getId()) {
